@@ -1,21 +1,25 @@
+# tested on R 3.4.3
 # setup required libraries and constants
-library(scater)
-library(xgboost)
-library(igraph)
+library(scater)  # tested on version 1.6.3,    install from Bioconductor: source("https://bioconductor.org/biocLite.R"); biocLite("scater")
+library(xgboost) # tested on version 0.6.4.1, install from CRAN: install.packages("xgboost")
+library(igraph)  # tested on version 1.2.1,   install from CRAN: install.packages("igraph")
 BREAKS=c(-1, 0, 1, 6, Inf)
 nFeatures = 100
 
-# 1. Load datasets in scater format: loaded files expected to contain "Large SCESet" object
-source = readRDS("sourceDataset.rds")
-target = readRDS("tragetDataset.rds")
+# 1. Load datasets in scater format: loaded files expected to contain "Large SingleCellExperiment" object
+source = readRDS("segerstolpe.rds")
+target = readRDS("xin.rds")
 ds1 = t(exprs(source)) 
 ds2 = t(exprs(target)) 
-labels = as.factor(pData(source)[,"cell_type1"])
+labels = as.factor(colData(source)[,"cell_type1"])
 
 # 2. Unify sets, excluding low expressed genes
-common_genes = intersect( fData(source)[fData(source)[,"n_cells_exprs"]>10,"feature_symbol"], 
-fData(target)[fData(target)[,"n_cells_exprs"]>10,"feature_symbol"]
+source_n_cells_counts = apply(exprs(source), 1, function(x) { sum(x > 0) } )
+target_n_cells_counts = apply(exprs(target), 1, function(x) { sum(x > 0) } )
+common_genes = intersect( rownames(source)[source_n_cells_counts>10], 
+                          rownames(target)[target_n_cells_counts>10]
 )
+remove(source_n_cells_counts, target_n_cells_counts)
 ds1 = ds1[, colnames(ds1) %in% common_genes]
 ds2 = ds2[, colnames(ds2) %in% common_genes]
 ds = rbind(ds1[,common_genes], ds2[,common_genes])
