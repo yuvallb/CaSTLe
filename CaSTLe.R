@@ -7,8 +7,8 @@ BREAKS=c(-1, 0, 1, 6, Inf)
 nFeatures = 100
 
 # 1. Load datasets in scater format: loaded files expected to contain "Large SingleCellExperiment" object
-source = readRDS("segerstolpe.rds")
-target = readRDS("xin.rds")
+source = readRDS("source.rds")
+target = readRDS("target.rds")
 ds1 = t(exprs(source)) 
 ds2 = t(exprs(target)) 
 labels = as.factor(colData(source)[,"cell_type1"])
