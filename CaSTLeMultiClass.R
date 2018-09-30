@@ -11,7 +11,7 @@ source = readRDS("source.rds")
 target = readRDS("target.rds")
 ds1 = t(exprs(source)) 
 ds2 = t(exprs(target)) 
-labels = as.factor(colData(source)[,"cell_type1"])
+sourceCellTypes = as.factor(colData(source)[,"cell_type1"])
 
 # 2. Unify sets, excluding low expressed genes
 source_n_cells_counts = apply(exprs(source), 1, function(x) { sum(x > 0) } )
@@ -30,7 +30,7 @@ remove(ds1, ds2)
 topFeaturesAvg = colnames(ds)[order(apply(ds, 2, mean), decreasing = T)]
 
 # 4. Highest mutual information in source
-topFeaturesMi = names(sort(apply(ds[isSource,],2,function(x) { compare(cut(x,breaks=BREAKS),labels,method = "nmi") }), decreasing = T))
+topFeaturesMi = names(sort(apply(ds[isSource,],2,function(x) { compare(cut(x,breaks=BREAKS),sourceCellTypes,method = "nmi") }), decreasing = T))
 
 # 5. Top n genes that appear in both mi and avg
 selectedFeatures = union(head(topFeaturesAvg, nFeatures) , head(topFeaturesMi, nFeatures) )
@@ -53,16 +53,16 @@ remove(dsBins, nUniq)
 # 9. Classify
 train = runif(nrow(ds[isSource,]))<0.8
 # slightly different setup for multiclass and binary classification
-if (length(unique(labels)) > 2) {
+if (length(unique(sourceCellTypes)) > 2) {
   xg=xgboost(data=ds[isSource,][train, ] , 
-       label=as.numeric(labels[train])-1,
-       objective="multi:softmax", num_class=length(unique(labels)),
-       eta=0.7 , nthread=5, nround=20,
+       label=as.numeric(sourceCellTypes[train])-1,
+       objective="multi:softmax", num_class=length(unique(sourceCellTypes)),
+       eta=0.7 , nthread=5, nround=20, verbose=0,
        gamma=0.001, max_depth=5, min_child_weight=10)
 } else {
   xg=xgboost(data=ds[isSource,][train, ] , 
-       label=as.numeric(labels[train])-1,
-       eta=0.7 , nthread=5, nround=20,
+       label=as.numeric(sourceCellTypes[train])-1,
+       eta=0.7 , nthread=5, nround=20, verbose=0,
        gamma=0.001, max_depth=5, min_child_weight=10)
 }
 
