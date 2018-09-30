@@ -2,7 +2,10 @@
 ## Classification of Single cells by Transfer Learning
 
 Label cells in an Single cell RNA sequencing (scRNA-seq) experiment, using knowledge learnt from other experiments on similar cell types.
-R code for loading the Source and Target datasets, feature selection, transformation and classification using XGBoost.
+
+R source code for:
+
+CaSTLe – classification of single cells by transfer learning: Harnessing the power of publicly available single cell RNA sequencing experiments to annotate new experiments 
   
 It is assumed that the Source and Target datasets are available in files in scater format of “Large SingleCellExperiment” object, regarded as sourceDataset.rds and tragetDataset.rds in the code.
 
