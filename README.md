@@ -5,7 +5,7 @@ Label cells in an Single cell RNA sequencing (scRNA-seq) experiment, using knowl
 
 R source code for:
 
-CaSTLe – classification of single cells by transfer learning: Harnessing the power of publicly available single cell RNA sequencing experiments to annotate new experiments 
+[CaSTLe – classification of single cells by transfer learning: Harnessing the power of publicly available single cell RNA sequencing experiments to annotate new experiments](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0205499)
   
 It is assumed that the Source and Target datasets are available in files in scater format of “Large SingleCellExperiment” object, regarded as sourceDataset.rds and tragetDataset.rds in the code.
 
