@@ -14,3 +14,4 @@ The R code uses the following libraries:
   * Xgboost: eXtreme Gradient Boosting (Chen et al. , 2017) is used for building the classification model itself.
   * Igraph (Csardi & Nepusz, 2006) is used for calculating mutual information.
 
+See some useful questions and answers in the "issues" section, feel free to open an issue for any question, clarification or concern.
