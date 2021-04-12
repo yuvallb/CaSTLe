@@ -15,3 +15,5 @@ The R code uses the following libraries:
   * Igraph (Csardi & Nepusz, 2006) is used for calculating mutual information.
 
 See some useful questions and answers in the "issues" section, feel free to open an issue for any question, clarification or concern.
+
+Fell free to contact me using the Issues section, or by email: yuvallb@gmail.com
