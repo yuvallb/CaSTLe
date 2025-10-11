@@ -16,4 +16,7 @@ The R code uses the following libraries:
 
 See some useful questions and answers in the "issues" section, feel free to open an issue for any question, clarification or concern.
 
+The best place to find sample datasets in SCATER format is:
+https://hemberg-lab.github.io/scRNA.seq.datasets/
+
 Fell free to contact me using the Issues section, or by email: yuvallb@gmail.com
